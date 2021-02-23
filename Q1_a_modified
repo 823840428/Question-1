@@ -1,0 +1,23 @@
+import pandas as pd
+
+m, n = 9, 9
+def dfs(remain, m_remain, n_remain, i, j):
+    if i>=m or j>=n: return
+    if remain < 0: return
+    if remain == 0:
+        if i == m - 1 and j == n - 1:
+            ans.append([''.join(path)])
+            return
+    path.append('R')
+    dfs(remain - (i + 1), m_remain, n_remain - 1, i, j + 1)
+    path.pop()
+    path.append('D')
+    dfs(remain - (i + 2), m_remain - 1, n_remain, i + 1, j)
+    path.pop()
+path = list()
+ans = list()
+target = 110
+remain = target - 1
+dfs(remain, m - 1, n - 1, 0, 0)
+ans = pd.DataFrame(ans)
+ans.to_csv('./output_question_1', index=None, header=None, sep = ' ')
